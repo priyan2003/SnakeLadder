@@ -1,6 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+class Board{
+    int size;
+    unordered_map<int, int> snakes;
+    unordered_map<int, int> ladders;
+public:
+    Board(int n = 100){
+        size = n;
+    }
+    
+};
+
 class Game {
     Board board;
     Dice dice;
