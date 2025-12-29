@@ -83,6 +83,8 @@ public:
         while(true){
             Player &player = players[currentTurn];
             cout<<player.getName()<<"'s turn"<<endl;
+            cout<<"Press ENTER to roll the dice...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             int diceValue = dice.roll();
             cout<<"Rolled : "<<diceValue<<endl;
             int currPos = player.getPosition();
@@ -92,7 +94,7 @@ public:
                 cout<<"Can not move!!"<<endl;
             }
             else{
-                cout<<"Moved from "<<currPos<<"to "<<newPos<<endl;
+                cout<<"Moved from "<<currPos<<" to "<<newPos<<endl;
                 newPos = board.getFinalPosition(newPos);
                 player.setPosition(newPos);
             }
@@ -108,5 +110,28 @@ public:
       
 };
 int main(){
-    
+    Game game;
+    game.addPlayer("Player 1");
+    game.addPlayer("Player 2");
+
+    game.addLadder(1,38);
+    game.addLadder(4,14);
+    game.addLadder(8,30);
+    game.addLadder(21,42);
+    game.addLadder(28,76);
+    game.addLadder(50,67);
+    game.addLadder(80, 99);
+    game.addLadder(71,92);
+
+    game.addSnake(97,78);
+    game.addSnake(95,56);
+    game.addSnake(88,24);
+    game.addSnake(62,18);
+    game.addSnake(48,26);
+    game.addSnake(36,6);
+    game.addSnake(32,10);
+
+
+    game.Play();
+    return 0;
 }
