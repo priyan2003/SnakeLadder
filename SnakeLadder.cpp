@@ -2,6 +2,26 @@
 using namespace std;
 
 
+class Player {
+    string name;
+    int position;
+public:
+    Player(string name){
+        this->name = name;
+        position = 0;
+    }
+    string getName(){
+        return name;
+    }
+    int getPosition(){
+        return position;
+    }
+    void setPosition(int pos){
+        position = pos;
+    }
+
+};
+
 class Board{
     int size;
     unordered_map<int, int> snakes;
