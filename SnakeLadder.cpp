@@ -1,6 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Dice{
+public:
+   int roll(){
+      return(rand()%6)+1;
+   }
+};
 
 class Player {
     string name;
@@ -76,7 +82,7 @@ public:
         cout<<"Snake Ladder game started!!"<<endl;
         while(true){
             Player &player = players[currentTurn];
-            cout<<player.getName<<"'s turn"<<endl;
+            cout<<player.getName()<<"'s turn"<<endl;
             int diceValue = dice.roll();
             cout<<"Rolled : "<<diceValue<<endl;
             int currPos = player.getPosition();
@@ -92,8 +98,8 @@ public:
             }
             cout<<" Current Positon : "<<player.getPosition()<<endl;
 
-            if(player.getPosition == board.getSize()){
-                cout<<player.getName<<" is Winner!!"<<endl;
+            if(player.getPosition() == board.getSize()){
+                cout<<player.getName()<<" is Winner!!"<<endl;
                 break;
             }
             currentTurn = (currentTurn + 1) % players.size();
@@ -102,5 +108,5 @@ public:
       
 };
 int main(){
-
+    
 }
