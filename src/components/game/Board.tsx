@@ -1,5 +1,5 @@
 import React from 'react';
-import Cell from './Cell';
+import Cell from './Cell.tsx';
 import { getCellNumber, GRID_SIZE, Player } from '@/lib/gameConfig';
 
 interface BoardProps {
