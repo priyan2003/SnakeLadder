@@ -1,68 +1,237 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
+@layer base {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --background: 45 30% 96%;
+    --foreground: 25 30% 15%;
+
+    --card: 45 40% 98%;
+    --card-foreground: 25 30% 15%;
+
+    --popover: 45 40% 98%;
+    --popover-foreground: 25 30% 15%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 45 60% 92%;
+    --secondary-foreground: 25 30% 15%;
+
+    --muted: 45 30% 90%;
+    --muted-foreground: 25 20% 45%;
+
+    --accent: 158 64% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 45 30% 85%;
+    --input: 45 30% 85%;
+    --ring: 262 83% 58%;
+
+    --radius: 1rem;
+
+    /* Game-specific colors */
+    --board-bg: 35 40% 88%;
+    --cell-light: 45 50% 95%;
+    --cell-dark: 35 35% 85%;
+    --cell-highlight: 262 83% 58%;
+    
+    --snake-start: 0 85% 60%;
+    --snake-end: 15 90% 50%;
+    --snake-gradient: linear-gradient(135deg, hsl(var(--snake-start)), hsl(var(--snake-end)));
+    
+    --ladder-start: 45 90% 55%;
+    --ladder-end: 35 85% 45%;
+    --ladder-gradient: linear-gradient(135deg, hsl(var(--ladder-start)), hsl(var(--ladder-end)));
+    
+    --player-color: 262 83% 58%;
+    --player-glow: 262 83% 70%;
+    
+    --dice-bg: 0 0% 100%;
+    --dice-dots: 25 30% 15%;
+    
+    --win-gradient: linear-gradient(135deg, hsl(45 100% 60%), hsl(35 100% 50%));
   }
-  a:hover {
-    color: #747bff;
+
+  .dark {
+    --background: 25 30% 8%;
+    --foreground: 45 30% 96%;
+
+    --card: 25 25% 12%;
+    --card-foreground: 45 30% 96%;
+
+    --popover: 25 25% 12%;
+    --popover-foreground: 45 30% 96%;
+
+    --primary: 262 83% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 25 20% 18%;
+    --secondary-foreground: 45 30% 96%;
+
+    --muted: 25 20% 18%;
+    --muted-foreground: 45 20% 60%;
+
+    --accent: 158 64% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 25 20% 20%;
+    --input: 25 20% 20%;
+    --ring: 262 83% 65%;
+
+    --board-bg: 25 25% 15%;
+    --cell-light: 25 20% 22%;
+    --cell-dark: 25 25% 18%;
+    --cell-highlight: 262 83% 55%;
+    
+    --player-color: 262 83% 65%;
+    --player-glow: 262 83% 75%;
+    
+    --dice-bg: 25 20% 20%;
+    --dice-dots: 45 30% 90%;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Fredoka', sans-serif;
+  }
+  
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Game Animations */
+@keyframes dice-roll {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-20deg) scale(1.1); }
+  50% { transform: rotate(20deg) scale(0.95); }
+  75% { transform: rotate(-10deg) scale(1.05); }
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px hsl(var(--player-glow) / 0.5); }
+  50% { box-shadow: 0 0 40px hsl(var(--player-glow) / 0.8); }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes confetti {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.animate-dice-roll {
+  animation: dice-roll 0.5s ease-in-out;
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.4s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out forwards;
+}
+
+.animate-wiggle {
+  animation: wiggle 0.3s ease-in-out infinite;
+}
+
+/* Board styling */
+.board-container {
+  background: linear-gradient(145deg, hsl(var(--board-bg)), hsl(var(--board-bg) / 0.8));
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.cell {
+  transition: all 0.2s ease;
+}
+
+.cell:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.cell-snake {
+  background: var(--snake-gradient);
+  color: white;
+}
+
+.cell-ladder {
+  background: var(--ladder-gradient);
+  color: white;
+}
+
+.cell-current {
+  background: hsl(var(--cell-highlight));
+  color: white;
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* Glass effect for controls */
+.glass {
+  background: hsl(var(--card) / 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid hsl(var(--border) / 0.5);
+}
+
+/* Player token */
+.player-token {
+  background: linear-gradient(135deg, hsl(var(--player-color)), hsl(var(--player-glow)));
+  box-shadow: 
+    0 4px 15px hsl(var(--player-color) / 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+/* Dice styling */
+.dice {
+  background: hsl(var(--dice-bg));
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.dice-dot {
+  background: hsl(var(--dice-dots));
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
